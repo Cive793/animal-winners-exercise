@@ -52,3 +52,43 @@ td[data-field="winner"]::after {
 td[data-field="winner"][data-winner="false"]::after {
   filter: grayscale(1);
 }
+
+/* REMOVE OTHER BOX */
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.dialog {
+  box-shadow: 1px 1px 10px #333;
+  border-radius: 12px;
+  padding: 2em;
+  background-color: lightcoral;
+  position: relative;
+}
+
+button.closeButton {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  border-radius: 50%;
+  width: 2em;
+  height: 2em;
+}
+
+.dialog h1 {
+  margin-top: 0;
+}
+
+.hidden {
+  /* display: none; */
+  visibility: hidden;
+}
