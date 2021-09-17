@@ -59,7 +59,7 @@ function preapareObject(jsonObject) {
 }
 
 function buildList() {
-  const currentList = allAnimals; // FUTURE: Filter and sort currentList before displaying
+  const currentList = allAnimals;
 
   displayList(currentList);
 }
@@ -244,6 +244,9 @@ function tryToMakeWinner(selectedAnimal) {
     document.querySelector("#removeOther .closeButton").addEventListener("click", closeDialog);
     document.querySelector("#removeOtherButton").addEventListener("click", clickRemoveOther);
 
+    //show name on button
+    document.querySelector("#removeOther [data-field=otherWinner]").textContent = other.name;
+
     //if ignore - do nothing
     function closeDialog() {
       document.querySelector("#removeOther").classList.add("hidden");
@@ -262,11 +265,38 @@ function tryToMakeWinner(selectedAnimal) {
 
   function removeAorB(winnerA, winnerB) {
     //ask the user to ingore or remove A or B
+    document.querySelector("#removeAorB").classList.remove("hidden");
+    document.querySelector("#removeAorB .closeButton").addEventListener("click", closeDialog);
+    document.querySelector("#removeA").addEventListener("click", clickRemoveA);
+    document.querySelector("#removeB").addEventListener("click", clickRemoveB);
+
+    //show names on buttons
+    document.querySelector("#removeAorB [data-field=winnerA]").textContent = winnerA.name;
+    document.querySelector("#removeAorB [data-field=winnerB]").textContent = winnerB.name;
 
     //if ignore - do nothing
-    //if removeA:
-    removeWinner(winnerA);
-    makeWinner(selectedAnimal);
+    function closeDialog() {
+      document.querySelector("#removeAorB").classList.add("hidden");
+      document.querySelector("#removeAorB .closeButton").removeEventListener("click", closeDialog);
+      document.querySelector("#removeA").removeEventListener("click", clickRemoveA);
+      document.querySelector("#removeB").removeEventListener("click", clickRemoveB);
+    }
+
+    function clickRemoveA() {
+      //if removeA:
+      removeWinner(winnerA);
+      makeWinner(selectedAnimal);
+      buildList();
+      closeDialog();
+    }
+
+    function clickRemoveB() {
+      //if removeA:
+      removeWinner(winnerB);
+      makeWinner(selectedAnimal);
+      buildList();
+      closeDialog();
+    }
   }
 
   function removeWinner(winnerAnimal) {
